@@ -12,12 +12,11 @@ from django.db.models import Q
 from django.http import StreamingHttpResponse, FileResponse
 
 from account.decorators import problem_permission_required, ensure_created_by
-from account.models import User
-from contest.models import Contest, ContestStatus, ContestRuleType, OIContestRank, ACMContestRank
+from contest.models import Contest, ContestStatus
+from contest.tasks import contest_rejudge_task
 from fps.parser import FPSHelper, FPSParser
 from judge.dispatcher import SPJCompiler
 from judge.languages import language_names
-from judge.tasks import judge_task
 from submission.models import Submission, JudgeStatus
 from utils.api import APIView, CSRFExemptAPIView, validate_serializer, APIError
 from utils.constants import Difficulty
